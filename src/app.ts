@@ -5,7 +5,9 @@ class Department {
     // it is not an object
     // can be used to create an object, but not an object
     // publice name: string;
-    private employees: string[] =[]
+    // private employees: string[] =[]
+    protected employees: string[] =[]
+    // prtoected is like private but can be used in any class that extends this class as well
 
     // mean that employees is now a property which is only accessible from inside the class. 
     // methods inside the department class can work with employees but it cannot be accessed like 
@@ -30,8 +32,8 @@ class Department {
         console.log('Deparment: ' + this.name + "," +this.id)
         // this will refer the the thing calling the method not a value from the class in which the method belongs
     }
-    addEmployee(employee: string){
-        this.employees.push(employee)
+    addEmployee(name: string){
+        this.employees.push(name)
     }
     printEmployeeInformation(){
         console.log(this.employees.length);
@@ -56,12 +58,32 @@ class ITDepartment extends Department{
 }
 
 class AccountingDepartment extends Department{
+    private lastReport :string;
+// a getter if a property where you execute a fucntion or a method when you retrieve a value
+    get mostRecentReport(){
+        if(this.lastReport){
+            
+        }
+        // getter methods have to return something
+        return 
+    }
+
     constructor(id: string, private reports: string[]){
         super(id, "Accounting");
         this.reports = reports 
     }
+    addEmployee(name: string){
+        if(name === 'Max'){
+            return;
+        }
+        this.employees.push(name);
+        // changed to protected
+        // give an error because the employee is set to private in the department class so that information is not shared here
+    
+    }
     addReport(text: string){
         this.reports.push(text);
+        this.lastReport = text;
     }
     printReports(){
         console.log(this.reports);
